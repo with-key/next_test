@@ -1,13 +1,19 @@
+"use client";
+
 import { useState } from "react";
 
-export default function Counter() {
-  const [count, setCount] = useState(0);
+function Component() {
+  const [color, setColor] = useState("red");
+
+  const handleButtonClick = () => {
+    return color === "red" ? setColor("blue") : setColor("red");
+  };
+
   return (
-    <>
-      <h2>{count}</h2>
-      <button type="button" onClick={() => setCount(count + 1)}>
-        +
-      </button>
-    </>
+    <button onClick={handleButtonClick} style={{ backgroundColor: color }}>
+      {color === "red" ? "Change to Blue" : "Change to Red"}
+    </button>
   );
 }
+
+export default Component;

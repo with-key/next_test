@@ -1,12 +1,26 @@
-/**
- * @jest-environment jsdom
- */
-import { fireEvent, render, screen } from "@testing-library/react";
+import { logRoles, render, screen, fireEvent } from "@testing-library/react";
 import Component from "./component";
 
-it("App Router: Works with Client Components (React State)", () => {
+test("button has correct initial color, ", () => {
   render(<Component />);
-  expect(screen.getByRole("heading")).toHaveTextContent("0");
-  fireEvent.click(screen.getByRole("button"));
-  expect(screen.getByRole("heading")).toHaveTextContent("1");
+
+  const colorButton = screen.getByRole("button", {
+    name: "Change to Blue",
+  });
+
+  expect(colorButton).toHaveStyle({ backgroundColor: "red" });
+});
+
+test("button turns blue when clicked", () => {
+  render(<Component />);
+
+  const colorButton = screen.getByRole("button", {
+    name: "Change to Blue", // 컴포넌트에 해당 role을 가진 버튼이 여러개라면, name을 통해 구분할 수 있다.
+  });
+  expect(colorButton).toHaveStyle({ backgroundColor: "red" });
+
+  fireEvent.click(colorButton);
+  expect(colorButton).toHaveStyle({ backgroundColor: "blue" });
+
+  expect(colorButton).toHaveTextContent("Change to Red");
 });
